@@ -1,22 +1,25 @@
-function [u,H,output] = EM_Blind_Deconv(f,pm)
+function [u,H,output] = EM_Blind_Deconv(f,Mh,Nh,pm)
 
 
-Mh = pm.Mh;
-Nh = pm.Nh;
-u = pm.u;
-H = pm.H;
+%% initizing image u and kernerl H
+u = padarray(f,[floor(Mh/2) floor(Nh/2)],'replicate');
+H = ones(Mh,Nh)/Mh/Nh;
 
 output.Err = [];
 
+%%
+maxit = 20;
+if isfield(pm,'maxit'); maxit = pm.maxit; end
 
+
+%% Deconvolution
 u_const = ones(size(u));
 
 tstart = tic;
 U = u;
-for  it = 1:pm.maxit
+for  it = 1:maxit
     
-    % ------------update image --------------------
-    
+    % ------------update image --------------------   
     % EM step :
     f1a = u./conv2( u_const,rot90(H,2), 'same');
     
@@ -36,8 +39,7 @@ for  it = 1:pm.maxit
     % Kernel projection
     H = H.*(H>0);
     H = H/sum(H(:));
-    
-    
+      
     output.cpu(it) = toc(tstart);
     
     % ======= Error curve =================

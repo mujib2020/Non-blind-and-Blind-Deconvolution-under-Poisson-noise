@@ -1,11 +1,8 @@
 clear; close all; clc;
-
 addpath('.\utilities')
 
-
 %% Data Generation
-%  I :  Ground Truth
-
+% Ground Truth
 I = imread('.\data\galaxy256.png');
 I = double(I);
 
@@ -21,9 +18,9 @@ I_blurry = imfilter(I,H,'circular');
 f = poissrnd(I_blurry);
 
 %% TV
-pm.alpha = 1;
 % Paremeter setting
 pm.beta = 20;
+pm.alpha = 1;
 pm.mu1 = 0.1;
 pm.mu2 = 20;
 pm.maxit = 300;
@@ -31,18 +28,16 @@ pm.maxit = 300;
 [u_TV,output_TV] = FOTVDeblur_NB(f,H,pm);
 
 %% FOTV
-pm.alpha = 1.6; % optimal fractional order
 % Paremeter setting
+pm.alpha = 1.6; 
 pm.beta = 20;
 pm.mu1 = 0.1;
 pm.mu2 = 20;
 pm.maxit = 300;
 
-
 [u_FOTV,output_FOTV] = FOTVDeblur_NB(f,H,pm);
 
-
-%% plot the results
+%% visualize the results
 figure;
 subplot(221); imshow(f,[0,peak]);title(['Input, PSNR=', num2str(PSNR(I,f))]);
 subplot(222); imshow(u_TV,[0,peak]);title(['TV, PSNR=', num2str(PSNR(I,u_TV))]);
