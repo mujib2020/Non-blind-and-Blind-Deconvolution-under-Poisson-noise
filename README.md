@@ -1,5 +1,3 @@
-# Non-blind-and-Blind-Deconvolution-under-Poisson-noise
-Non-blind and Blind Deconvolution under Poisson noise via Fractional-order Total Variation
 
   
 
@@ -16,7 +14,7 @@ SOFTWARE
 
 SOFTWARE REVISION DATE:
 
-       July 2020
+       SEPTEMBER 2020
 
 SOFTWARE LANGUAGE:
 
@@ -43,7 +41,7 @@ FOTV_deconv_blind : function implementing the FOTV deblurring method (blind)
 EM_Blind_Deconv   : function implementing the EM deblurring method (blind)
 defDDt.m	  : function of fractional derivatives
 conv2fft          : function of convolution to have a valid boundary (by P. Favaro)
-PSNR.m		  : function of Peak signal-to-noise ratio
+PSNR.m		  : function of peak signal-to-noise ratio (PSNR)
 
 
 ======================================================================
